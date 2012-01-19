@@ -135,7 +135,12 @@ int main()
                                                 MousePos.y);
                             break;
                     }
+                    break;
                 
+                case Event::MouseWheelMoved:
+                    // La molette de la souris est bougée
+                    cout << "wheel move : " << Event.MouseWheel.Delta << endl;
+                    break;
             }
         }
 
