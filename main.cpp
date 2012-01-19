@@ -21,6 +21,8 @@ void drawDebug(RenderWindow * app, String verb);
 int main()
 {
     bool debug = false;
+    
+    int selectedBlock = 1;
 
     // Create the main window
     RenderWindow App(VideoMode(SCREEN_W, SCREEN_H), "E.O.W.",Style::Resize | Style::Close);
@@ -64,9 +66,6 @@ int main()
     // Start the game loop
     while (App.IsOpened())
     {
-        
-        int nonBlankBlock;
-        
         // Process events
         while (App.GetEvent(Event))
         {
@@ -143,11 +142,23 @@ int main()
                     switch (Event.MouseWheel.Delta)
                     {
                         case 1:
-                            cout << "La molette a été monté d'un cran" << endl;
+                            if (selectedBlock >= blocklist.getBlocklistSize())
+                                selectedBlock = 1;
+                            else
+                                selectedBlock++;
+                            
+                            cout << "Block selectionné : " << selectedBlock << "/" << blocklist.getBlocklistSize() << endl;
+                            
                             break;
                         
                         case -1:
-                            cout << "La molette a été baisée d'un cran" << endl;
+                            if (selectedBlock <= 1)
+                                selectedBlock = blocklist.getBlocklistSize();
+                            else
+                                selectedBlock--;
+                            
+                            cout << "Block selectionné : " << selectedBlock << "/" << blocklist.getBlocklistSize() << endl;
+                            
                             break;
                     }
                     break;
