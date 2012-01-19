@@ -139,7 +139,17 @@ int main()
                 
                 case Event::MouseWheelMoved:
                     // La molette de la souris est bougée
-                    cout << "wheel move : " << Event.MouseWheel.Delta << endl;
+//                    cout << "wheel move : " << Event.MouseWheel.Delta << endl;
+                    switch (Event.MouseWheel.Delta)
+                    {
+                        case 1:
+                            cout << "La molette a été monté d'un cran" << endl;
+                            break;
+                        
+                        case -1:
+                            cout << "La molette a été baisée d'un cran" << endl;
+                            break;
+                    }
                     break;
             }
         }
