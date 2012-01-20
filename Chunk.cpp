@@ -186,3 +186,28 @@ bool Chunk::affectBlockSpAt(float x, float y, int val)
     return value;
 }
 
+void Chunk::changeBlockTypeAt(int x, int y, unsigned int e_type)
+{
+    if (x > MAP_W || y > MAP_H)
+        return;
+    else
+    {
+        m_CblockTable[x][y]->setType(e_type);
+        m_CblockTable[x][y]->setSp(1);
+        m_CblockTable[x][y]->update();
+    }
+}
+
+void Chunk::changeBlockTypeAt(float x, int y, unsigned int e_type)
+{
+    x = x/BLOCK_W;
+    y = y/BLOCK_H;
+    if (x > MAP_W || y > MAP_H)
+        return;
+    else
+    {
+        m_CblockTable[(int) x][(int) y]->setType(e_type);
+        m_CblockTable[(int) x][(int) y]->setSp(1);
+        m_CblockTable[(int) x][(int) y]->update();
+    }
+}

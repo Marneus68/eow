@@ -55,6 +55,9 @@ class Chunk
     bool affectBlockSpAt(int x, int y);
     bool affectBlockSpAt(float x, float y);
     bool affectBlockSpAt(float x, float y, int val);
+    // Changement du type
+    void changeBlockTypeAt(int x, int y, unsigned int e_type);
+    void changeBlockTypeAt(float x, int y, unsigned int e_type);
 };
 
 #endif
