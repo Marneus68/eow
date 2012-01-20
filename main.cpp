@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -62,6 +63,14 @@ int main()
     Chunk Map(0, blocklist);
     Map.sequence();
     Map.rockBottom(4);
+
+    Image hudImg;
+    hudImg.LoadFromFile("./res/gfx/hud.png");
+    hudImg.SetSmooth(false);
+    
+    Sprite hudBlock;
+    Sprite hudSpr;
+    hudSpr.SetImage(hudImg);
 
     // Start the game loop
     while (App.IsOpened())
@@ -127,11 +136,21 @@ int main()
                     switch (Event.MouseButton.Button)
                     {
                         case Mouse::Left:
+                        {
                             Vector2f MousePos = App.ConvertCoords(
                                                 App.GetInput().GetMouseX(),
                                                 App.GetInput().GetMouseY());
                             Map.affectBlockSpAt(MousePos.x,
                                                 MousePos.y);
+                            break;
+                        }
+                        
+                        case Mouse::Right:
+                            Vector2f MousePos2 = App.ConvertCoords(
+                                                App.GetInput().GetMouseX(),
+                                                App.GetInput().GetMouseY());
+                            Map.changeBlockTypeAt(MousePos2.x,
+                                                MousePos2.y, selectedBlock);
                             break;
                     }
                     break;
@@ -142,22 +161,22 @@ int main()
                     switch (Event.MouseWheel.Delta)
                     {
                         case 1:
-                            if (selectedBlock >= blocklist.getBlocklistSize())
+                            if (selectedBlock >= blocklist.getBlocklistSize()-1)
                                 selectedBlock = 1;
                             else
                                 selectedBlock++;
                             
-                            cout << "Block selectionné : " << selectedBlock << "/" << blocklist.getBlocklistSize() << endl;
+                            cout << "Block selectionné : " << selectedBlock << "/" << blocklist.getBlocklistSize()-1 << endl;
                             
                             break;
                         
                         case -1:
                             if (selectedBlock <= 1)
-                                selectedBlock = blocklist.getBlocklistSize();
+                                selectedBlock = blocklist.getBlocklistSize()-1;
                             else
                                 selectedBlock--;
                             
-                            cout << "Block selectionné : " << selectedBlock << "/" << blocklist.getBlocklistSize() << endl;
+                            cout << "Block selectionné : " << selectedBlock << "/" << blocklist.getBlocklistSize()-1 << endl;
                             
                             break;
                     }
@@ -195,6 +214,19 @@ int main()
 
         // Draw the chunk
         drawLoop(&App, &Map, spriteman);
+
+        hudBlock = spriteman->GetSpr(selectedBlock);
+        hudBlock.SetScale(3,3);
+//        hudBlock.SetX(SCREEN_W-hudBlock.GetSize().x);
+//        hudBlock.SetY(SCREEN_H-hudBlock.GetSize().y);
+        hudSpr.SetX(View.GetRect().Right - 54);
+        hudSpr.SetY(View.GetRect().Bottom - 54);
+
+        hudBlock.SetX(View.GetRect().Right - BLOCK_W*3);
+        hudBlock.SetY(View.GetRect().Bottom - BLOCK_H*3);
+
+        App.Draw(hudSpr);
+        App.Draw(hudBlock);
 
         // Dessiner les élements du debbuging (f1)
         if (debug) drawDebug(&App, VerboseVariables);

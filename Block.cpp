@@ -49,9 +49,15 @@ bool Cblock::isGrassy()
     return m_grassy;
 }
 
-void Cblock::setSp(int val)
+// Setters
+void Cblock::setType(unsigned int e_type)
 {
-    m_sp = val;
+    m_type = e_type;
+}
+
+void Cblock::setSp(int e_val)
+{
+    m_sp = e_val;
 }
 
 void Cblock::setGrassy(bool e_grassy)

@@ -39,7 +39,8 @@ class Cblock
     unsigned int getSp();
     bool isGrassy();
     // Setters
-    void setSp(int val);
+    void setType(unsigned int e_type);
+    void setSp(int e_val);
     void setGrassy(bool e_grassy);
     // Autres methodes
     void spDecrease();
