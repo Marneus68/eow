@@ -147,11 +147,11 @@ int main()
                         
                         case Mouse::Right:
                         {
-                            Vector2f MousePos2 = App.ConvertCoords(
+                            Vector2f MousePos = App.ConvertCoords(
                                                 App.GetInput().GetMouseX(),
                                                 App.GetInput().GetMouseY());
-                            Map.changeBlockTypeAt(MousePos2.x,
-                                                MousePos2.y, selectedBlock);
+                            Map.changeBlockTypeAt(MousePos.x,
+                                                MousePos.y, selectedBlock);
                             break;
                         }
                     }
