@@ -4,35 +4,57 @@
 Cspriteman *Cspriteman::_singleton = NULL;
 
 // Constructeur
-Cspriteman::Cspriteman(string const& e_imgPath, string const& e_decalPath)
+Cspriteman::Cspriteman(string const& e_imgPath)
 {
     unsigned int x, y;
-    // On charge les images
+    // On charge l'image
     m_sprSheetImg.LoadFromFile(GFX_PATH + e_imgPath);
-    m_decalSheetImg.LoadFromFile(GFX_PATH + e_decalPath);
 
     // Le smoothing c'est mal !
     m_sprSheetImg.SetSmooth(false);
-    m_decalSheetImg.SetSmooth(false);
     
-    // On crée des sprites à partir des images
-    m_decalSheetSpr.SetImage(m_decalSheetImg);
+    // On crée des sprites à partir de l'image
     m_sprSheetSpr.SetImage(m_sprSheetImg);
     
-    for (x = 0; x < 10; x++)
+//    for (x = 0; x < 30; x++)
+//    {
+//        Sprite newSprite(m_sprSheetImg);
+//        Rect<int> test(x*BLOCK_W,BLOCK_H,(x+1)*BLOCK_W,0);
+//        newSprite.SetSubRect(test);
+//        newSprite.SetCenter(0,-BLOCK_H);
+//        m_subSpr.push_back(newSprite);
+//        
+//        Sprite otherNewSprite(m_decalSheetImg);
+//        Rect<int> test2(x*BLOCK_W,BLOCK_H,(x+1)*BLOCK_W,0);
+//        otherNewSprite.SetSubRect(test2);
+//        otherNewSprite.SetCenter(0,-BLOCK_H);
+//        m_subDecal.push_back(otherNewSprite);
+//    }
+
+    for (x = 0; x < 30; x++)
     {
-        Sprite newSprite(m_sprSheetImg);
-        Rect<int> test(x*BLOCK_W,BLOCK_H,(x+1)*BLOCK_W,0);
-        newSprite.SetSubRect(test);
-        newSprite.SetCenter(0,-BLOCK_H);
-        m_subSpr.push_back(newSprite);
-        
-        Sprite otherNewSprite(m_decalSheetImg);
-        Rect<int> test2(x*BLOCK_W,BLOCK_H,(x+1)*BLOCK_W,0);
-        otherNewSprite.SetSubRect(test2);
-        otherNewSprite.SetCenter(0,-BLOCK_H);
-        m_subDecal.push_back(otherNewSprite);
+        for(y = 0; y < 3; y++)
+        {
+            Sprite newSprite(m_sprSheetImg);
+            Rect<int> test(x*BLOCK_W,(y+1)*BLOCK_H,(x+1)*BLOCK_W,y*BLOCK_H);
+            newSprite.SetSubRect(test);
+            newSprite.SetCenter(0,-BLOCK_H);
+            
+            // Selon la ligne à laquelle on est, on sait si il s'agit d'un block
+            // ou d'un decal
+            if (y >= 0 && y < 1)
+            {
+                // Il s'agit d'une image de block
+                m_subSpr.push_back(newSprite);
+            }
+            else if (y >= 2)
+            {
+                // Il s'agit d'un decal
+                m_subDecal.push_back(newSprite);
+            }
+        }
     }
+
 }
 
 // Destructeur
@@ -46,11 +68,6 @@ Cspriteman::~Cspriteman()
 Sprite Cspriteman::GetImageSpr()
 {
     return m_sprSheetSpr;
-}
-
-Sprite Cspriteman::GetImageDecal()
-{
-    return m_decalSheetSpr;
 }
 
 Sprite Cspriteman::GetSpr(unsigned int e_type)
@@ -79,11 +96,11 @@ string Cspriteman::toString()
 }
 
 // Methodes statiques
-Cspriteman* Cspriteman::Initialize(string const& e_imgPath, string const& e_decalPath)
+Cspriteman* Cspriteman::Initialize(string const& e_imgPath)
 {
     if (_singleton == NULL)
     {
-        _singleton =  new Cspriteman(e_imgPath, e_decalPath);
+        _singleton =  new Cspriteman(e_imgPath);
     }
     else
     {

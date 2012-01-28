@@ -40,7 +40,7 @@ int main()
 
     // Gestion des images
     Cspriteman *spriteman;
-    spriteman = Cspriteman::Initialize("blocks.png", "decals.png");
+    spriteman = Cspriteman::Initialize("blocks.png");
     //cout << "Singleton de management de sprites crée à l'adresse : " << spriteman << endl;
 
     // Gestion des blocks types
