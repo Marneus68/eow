@@ -8,6 +8,7 @@ Cspriteman::Cspriteman(string const& e_imgPath)
 {
     unsigned int x, y;
     // On charge l'image
+    Sprite m_sprSheetSpr;
     m_sprSheetImg.LoadFromFile(GFX_PATH + e_imgPath);
 
     // Le smoothing c'est mal !
@@ -15,21 +16,6 @@ Cspriteman::Cspriteman(string const& e_imgPath)
     
     // On crée des sprites à partir de l'image
     m_sprSheetSpr.SetImage(m_sprSheetImg);
-    
-//    for (x = 0; x < 30; x++)
-//    {
-//        Sprite newSprite(m_sprSheetImg);
-//        Rect<int> test(x*BLOCK_W,BLOCK_H,(x+1)*BLOCK_W,0);
-//        newSprite.SetSubRect(test);
-//        newSprite.SetCenter(0,-BLOCK_H);
-//        m_subSpr.push_back(newSprite);
-//        
-//        Sprite otherNewSprite(m_decalSheetImg);
-//        Rect<int> test2(x*BLOCK_W,BLOCK_H,(x+1)*BLOCK_W,0);
-//        otherNewSprite.SetSubRect(test2);
-//        otherNewSprite.SetCenter(0,-BLOCK_H);
-//        m_subDecal.push_back(otherNewSprite);
-//    }
 
     for (x = 0; x < 30; x++)
     {
@@ -65,11 +51,6 @@ Cspriteman::~Cspriteman()
 
 // Methodes
 // Getters
-Sprite Cspriteman::GetImageSpr()
-{
-    return m_sprSheetSpr;
-}
-
 Sprite Cspriteman::GetSpr(unsigned int e_type)
 {
     return m_subSpr[e_type];

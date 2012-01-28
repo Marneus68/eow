@@ -26,8 +26,6 @@ class Cspriteman
     // Attributs
     Image m_sprSheetImg;
     
-    Sprite m_sprSheetSpr;
-    
     vector<Sprite> m_subSpr;
     vector<Sprite> m_subDecal;
     
@@ -41,8 +39,6 @@ class Cspriteman
     public:
     // Methodes
     // Getters
-    // Retourne le sprite de l'image complette
-    Sprite GetImageSpr();
     // Retourne un sprite du tableau de sprites
     Sprite GetSpr(unsigned int e_type);
     Sprite GetDecal(unsigned int e_type);
